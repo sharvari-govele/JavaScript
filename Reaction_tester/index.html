@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reaction time</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #shape{
+                background-color: red;
+                width: 400px;
+                height: 400px;
+                position: relative;
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <p>Click on the box as fast as you can</p>
+        <div id="shape"></div>
+
+    <script>
+        var s=new Date().getTime();
+        function color(){
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                  color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+              }
+        function move(){
+            var l=Math.random()*500 +"px";
+            var t=Math.random()*300 +"px";
+            var hw=(Math.random()*200)+100 +"px";
+            document.getElementById("shape").style.left=l;
+            document.getElementById("shape").style.top=t;
+            document.getElementById("shape").style.height=hw;
+            document.getElementById("shape").style.width=hw;
+            document.getElementById("shape").style.display="block";
+            document.getElementById("shape").style.backgroundColor=color();
+            s=new Date().getTime();
+
+        };
+        document.getElementById("shape").onclick=function(){
+            var e=new Date().getTime();
+            document.getElementById("shape").style.display="none";
+            var t=(e-s)/1000;
+            var str=t+" seconds"
+            alert(str);
+            move();
+        }
+        
+    </script>
+
+    </body>
+</html>
