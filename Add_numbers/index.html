@@ -1,33 +1,86 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Random number guessing</title>
+        <title>Reaction time</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-    </head>
-    <body>
-        <p>Enter a number in range (1-5)</p>
-        <input type="text" id="inp">
-        <button type="submit" id="sub">Submit</button>
-        <script>
-            let val = 0;
-            document.getElementById("sub").onclick = function(){
-                val = document.getElementById("inp").value;
-                let k=Math.floor(Math.random() * 5) + 1
-                if(val==k){
-                    alert("You guess the right number");
-                }
-                else{
-                    document.getElementById("inp").value ="Try again";
-                    document.getElementById("inp").style.border="2px red solid";
-                    
-                }
-            document.getElementById("inp").onclick =function(){
-                document.getElementById("inp").value = "";
-            };
+        <style>
+            #shape{
+                background-color: red;
+                width: 400px;
+                height: 400px;
+                position: relative;
+                display: block;
+            }
+            .display{
+                width: 400px;
+                height: 200px;
+                background-color: aquamarine;
+                visibility:hidden;
 
             }
-        </script>
+        </style>
+    </head>
+    <body>
+        <p>Enter addition</p>
+        <div id="shape">
+            <span id="first"></span><span>+</span><span id="second"></span>
+            
+        <input type="text" id="inp">
+        <button type="submit" id="sub">Submit</button>
+        </div>
+        <div class="display">
+            you have given <span id="ans">0</span> correct answers.
+        </div>
+
+    <script>
+        var s=new Date().getTime();
+        function color(){
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                  color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+              }
+        function move(){
+            var l=Math.random()*500 +"px";
+            var t=Math.random()*300 +"px";
+            var hw=(Math.random()*200)+100 +"px";
+            document.getElementById("shape").style.left=l;
+            document.getElementById("shape").style.top=t;
+            document.getElementById("shape").style.height=hw;
+            document.getElementById("shape").style.width=hw;
+            document.getElementById("shape").style.display="block";
+            document.getElementById("shape").style.backgroundColor=color();
+            document.getElementById("first").innerHTML=Math.floor(Math.random()*10);
+            document.getElementById("second").innerHTML=Math.floor(Math.random()*10);
+            s=new Date().getTime();
+
+        };
+        move();
+        document.getElementById("sub").onclick=function(){
+            var e=new Date().getTime();
+            document.getElementById("shape").style.display="none";
+            var t=(e-s)/1000;
+            var str=t+" seconds";
+            var x=document.getElementById("first").innerHTML;
+            var y=document.getElementById("second").innerHTML;
+            var ans=document.getElementById("inp").value;
+            
+            if ((parseInt(x)+parseInt(y))==ans){
+                alert(str+" correct answer");
+                document.getElementById("inp").value ="";
+                move();
+            }
+            else{
+                document.getElementById("display").style.visibility="visible";
+                
+            }
+            
+        }
+        
+    </script>
+
     </body>
 </html>
