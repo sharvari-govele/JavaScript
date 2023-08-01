@@ -11,38 +11,46 @@
                 height: 400px;
                 position: relative;
                 display: block;
+                padding: 10px;
             }
-            .display{
-                width: 400px;
-                height: 200px;
-                background-color: aquamarine;
-                visibility:hidden;
+            #display{
+                width: 290px;
+                height: 40px;
+                background-color: rgb(2, 176, 176);
+                display: none;
+                font-size: 20px;
+                padding: 10px;
+                margin: auto;
 
             }
+            #inp{
+                width: 30px;
+                margin: 5px;
+            }
+            
         </style>
     </head>
     <body>
-        <p>Enter addition</p>
+        
         <div id="shape">
             <span id="first"></span><span>+</span><span id="second"></span>
             
         <input type="text" id="inp">
         <button type="submit" id="sub">Submit</button>
         </div>
-        <div class="display">
-            you have given <span id="ans">0</span> correct answers.
+        <div id="display">
+            you have given <span id="count">0</span> correct answers in <span id="ti"></span> seconds.
         </div>
 
     <script>
         var s=new Date().getTime();
         function color(){
-                var letters = '0123456789ABCDEF';
-                var color = '#';
-                for (var i = 0; i < 6; i++) {
-                  color += letters[Math.floor(Math.random() * 16)];
-                }
-                return color;
+                return "hsl(" + 360 * Math.random() + ',' +
+             75 + '%,' + 
+             75  + '%)'
               }
+        let count=0;
+        let ti=0;
         function move(){
             var l=Math.random()*500 +"px";
             var t=Math.random()*300 +"px";
@@ -62,19 +70,22 @@
         document.getElementById("sub").onclick=function(){
             var e=new Date().getTime();
             document.getElementById("shape").style.display="none";
-            var t=(e-s)/1000;
-            var str=t+" seconds";
+            var t=(e-s)/1000;;
             var x=document.getElementById("first").innerHTML;
             var y=document.getElementById("second").innerHTML;
             var ans=document.getElementById("inp").value;
             
             if ((parseInt(x)+parseInt(y))==ans){
-                alert(str+" correct answer");
+                alert("Your have given correct answer in "+t+" seconds");
                 document.getElementById("inp").value ="";
                 move();
+                count+=1;
+                ti=ti+t;
             }
             else{
-                document.getElementById("display").style.visibility="visible";
+                document.getElementById("display").style.display="block";
+                document.getElementById("count").innerHTML=count;
+                document.getElementById("ti").innerHTML=Math.round(ti*100)/100;
                 
             }
             
